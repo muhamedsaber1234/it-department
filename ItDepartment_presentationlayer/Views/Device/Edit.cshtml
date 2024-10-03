@@ -1,0 +1,33 @@
+﻿@model ITDepartment_DataAccess.models.Device
+
+@{
+    ViewBag.Title = "Edit Device";
+}
+
+<h2>Edit Device</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label for="Name">Device Name</label>
+        <input type="text" class="form-control" asp-for="Name" />
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Device Category</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+    </div>
+
+    <div class="form-group">
+        <label for="AcquisitionDate">Acquisition Date</label>
+        <input type="date" class="form-control" asp-for="AcquisitionDate" />
+    </div>
+
+    <div class="form-group">
+        <label for="PropertyValues">Device Properties</label>
+        <textarea class="form-control" asp-for="PropertyValues"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
