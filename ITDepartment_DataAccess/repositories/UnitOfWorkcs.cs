@@ -29,11 +29,15 @@ namespace ITDepartment_DataAccess.repositories
         }
         public int Complete()
         {
-            return _dbContext.SaveChanges();
+            try
+            {
+                return _dbContext.SaveChanges();
+            }
+            catch { throw new Exception("cant save this inputs because its violance our constrains"); }
         }
         public async Task CompleteAsync()
         {
-            await _dbContext.SaveChangesAsync(); // Save changes asynchronously
+            await _dbContext.SaveChangesAsync(); 
         }
         public void Dispose()
         { 
