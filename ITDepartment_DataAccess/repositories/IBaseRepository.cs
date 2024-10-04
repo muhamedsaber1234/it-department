@@ -12,6 +12,6 @@ namespace ITDepartment_DataAccess.repositories
         public T GetByID(int id);
         public void Update(T t);
         public void Delete(T t );
-        public void Add(T t);
+        public  Task Add(T t);
     }
 }

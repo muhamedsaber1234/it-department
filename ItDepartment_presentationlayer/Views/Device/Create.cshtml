@@ -14,7 +14,7 @@
 
     <div class="form-group">
         <label for="CategoryId">Device Category</label>
-        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories" id="CategoryId"></select>
     </div>
 
     <div class="form-group">
@@ -22,11 +22,50 @@
         <input type="date" class="form-control" id="AcquisitionDate" asp-for="AcquisitionDate" />
     </div>
 
-    <div class="form-group">
-        <label for="PropertyValues">Device Properties</label>
-        <textarea class="form-control" id="PropertyValues" name="PropertyValues"></textarea>
-    </div>
+    <div id="propertiesContainer"></div>
 
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#CategoryId').change(function () {
+                var categoryId = $(this).val();
+                if (categoryId) {
+                    $.ajax({
+                        url: '@Url.Action("GetAllByCategoryId", "Property")',
+                        type: 'GET',
+                        data: { id: categoryId },
+                        success: function (response) {
+                            var propertiesContainer = $('#propertiesContainer');
+                            propertiesContainer.empty();
+
+                            if (response && response.length > 0) {
+                                console.log(response);
+
+                                response.forEach(function (property,index) {
+                                    var inputField = `
+                                        <div class="form-group">
+                                            <label for="Property_${property.id}">${property.name}</label>
+                                                     <input type="hidden" name="propertyValues[${index}].PropertyId" value="${property.id}" />
+                                            <input  type="text" class="form-control" id="Property_${property.id}" name="PropertyValues[${index}].Value" />
+                                        </div>`;
+                                    propertiesContainer.append(inputField);
+                                });
+                            } else {
+                                propertiesContainer.append('<p>No properties available for this category.</p>');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            // Display error details for debugging
+                            console.error("Error:", xhr.responseText);
+                            alert("An error occurred: " + xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

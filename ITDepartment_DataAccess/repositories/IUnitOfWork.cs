@@ -15,6 +15,8 @@ namespace ITDepartment_DataAccess.repositories
         IBaseRepository<Property> Property { get; }
         IBaseRepository<PropertyValue> PropertyValue { get; }
         int Complete();
-        
+        public  Task CompleteAsync();
+
+
     }
 }

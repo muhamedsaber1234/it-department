@@ -9,7 +9,7 @@ namespace ITDepartment_BusinessLogic
 {
     public interface IDeviceService
     {
-        public void AddDevice(Device device, List<PropertyValue> propertyValues);
+        public Task AddDevice(Device device, List<PropertyValue> propertyValues);
         public void UpdateDevice(Device device, List<PropertyValue> propertyValues);
         public Device GetDeviceById(int id);
         public IEnumerable<Device> GetAllDevices();

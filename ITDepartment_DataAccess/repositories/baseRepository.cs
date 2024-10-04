@@ -19,7 +19,7 @@ namespace ITDepartment_DataAccess.repositories
             this.dbset = iTDBContext.Set<T>();
         }
 
-        public void Add(T t)
+        public async Task Add(T t)
         {
             dbset.Add(t);
         }

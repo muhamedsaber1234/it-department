@@ -34,6 +34,7 @@ namespace ItDepartment_presentationlayer
             // Register services
             builder.Services.AddScoped<IDeviceService,DeviceService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IPropertyService, PropertyService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
