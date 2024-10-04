@@ -10,5 +10,6 @@ namespace ITDepartment_DataAccess.repositories
     public interface IDeviceRepository :IBaseRepository<Device>
     {
         public IEnumerable<Device> GetAllWithCategory();
+        public  Device GetbyNameAndDate(string name, DateTime dateTime);
     }
 }

@@ -17,15 +17,18 @@ namespace ITDepartment_BusinessLogic.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task AddDevice(Device device, List<PropertyValue> propertyValues)
+        public void AddDevice(Device device, List<PropertyValue> propertyValues)
         {
-           await   _unitOfWork.Device.Add(device);
+             _unitOfWork.Device.Add(device);
+            _unitOfWork.Complete();
+
+          var device1 =   _unitOfWork.DeviceRepository.GetbyNameAndDate(device.Name,device.AcquisitionDate);
             foreach (var propertyValue in propertyValues)
             {
-                propertyValue.DeviceId = device.Id;
-              await  _unitOfWork.PropertyValue.Add(propertyValue);
+                propertyValue.DeviceId = device1.Id;
+              _unitOfWork.PropertyValue.Add(propertyValue);
             }
-           await _unitOfWork.CompleteAsync(); 
+            _unitOfWork.Complete(); 
         }
 
         public void UpdateDevice(Device device, List<PropertyValue> propertyValues)

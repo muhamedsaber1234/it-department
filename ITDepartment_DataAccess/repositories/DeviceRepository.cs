@@ -19,6 +19,11 @@ namespace ITDepartment_DataAccess.repositories
         {
             return iTDBContext.Devices.Include(d => d.Category).ToList();
         }
-
+        public Device GetbyNameAndDate(string name , DateTime dateTime)
+        {
+            var device =  iTDBContext.Devices.FirstOrDefault(x => x.AcquisitionDate == dateTime && x.Name == name);
+            return device;
+        }
+            
     }
 }
